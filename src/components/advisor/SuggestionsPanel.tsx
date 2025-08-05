@@ -1,5 +1,3 @@
-// src/components/advisor/SuggestionsPanel.tsx
-
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { db } from '../../lib/firebase';
@@ -18,7 +16,6 @@ const NODE_COLORS = [
   'bg-blue-200',
 ];
 
-// --- FIXED SuggestionCard ---
 const SuggestionCard = ({
   children,
   colorClass,
@@ -32,9 +29,9 @@ const SuggestionCard = ({
       <div
         className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center ${colorClass}`}
       >
-        {childrenArray[0]} {/* Icon */}
+        {childrenArray[0]}
       </div>
-      <div>{childrenArray[1]} {/* Content */}</div>
+      <div>{childrenArray[1]}</div>
     </div>
   );
 };
