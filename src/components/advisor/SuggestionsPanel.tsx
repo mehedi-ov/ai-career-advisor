@@ -1,4 +1,4 @@
-// src/components/advisor/SuggestionsPanel.tsx (Final, Corrected, and Crash-Proof)
+// src/components/advisor/SuggestionsPanel.tsx
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
@@ -11,19 +11,20 @@ import { MapIcon, AcademicCapIcon, BriefcaseIcon } from '@heroicons/react/24/sol
 
 const NODE_COLORS = ['bg-pink-200', 'bg-yellow-200', 'bg-green-200', 'bg-teal-200', 'bg-orange-200', 'bg-blue-200'];
 
-// A dedicated, perfectly styled component for each suggestion card
-const SuggestionCard = ({ children, colorClass }: { children: React.ReactNode, colorClass: string }) => (
-  <div className="bg-white p-4 rounded-xl border-2 border-gray-200 flex items-start space-x-4 shadow-sm w-full text-left">
-    <div
-      className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center ${colorClass}`}
-    >
-      {children[0]} {/* Icon */}
+// --- FIXED SuggestionCard ---
+const SuggestionCard = ({ children, colorClass }: { children: React.ReactNode, colorClass: string }) => {
+  const childrenArray = React.Children.toArray(children);
+  return (
+    <div className="bg-white p-4 rounded-xl border-2 border-gray-200 flex items-start space-x-4 shadow-sm w-full text-left">
+      <div className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center ${colorClass}`}>
+        {childrenArray[0]} {/* Icon */}
+      </div>
+      <div>
+        {childrenArray[1]} {/* Content */}
+      </div>
     </div>
-    <div>
-      {children[1]} {/* Content */}
-    </div>
-  </div>
-);
+  );
+};
 
 const SuggestionsPanel = ({ isLoading, suggestions }: { isLoading: boolean; suggestions: AIResponse | null }) => {
   const { user } = useAuth();
@@ -54,15 +55,21 @@ const SuggestionsPanel = ({ isLoading, suggestions }: { isLoading: boolean; sugg
       const roadmapRef = doc(db, 'roadmaps', roadmapId);
       const roadmapSnap = await getDoc(roadmapRef);
       if (!roadmapSnap.exists()) throw new Error("Roadmap not found.");
-      
+
       const existingNodes = roadmapSnap.data().nodes || [];
       const colorIndex = existingNodes.length % NODE_COLORS.length;
       const gridCols = 4; const xSpacing = 300; const ySpacing = 150;
       const x = 50 + (existingNodes.length % gridCols) * xSpacing;
       const y = 50 + Math.floor(existingNodes.length / gridCols) * ySpacing;
-      
-      const newNode: RoadmapNode = { id: `${Date.now()}`, title: stepToAdd, description: "From AI Suggestion", position: { x, y }, color: NODE_COLORS[colorIndex] };
-      
+
+      const newNode: RoadmapNode = {
+        id: `${Date.now()}`,
+        title: stepToAdd,
+        description: "From AI Suggestion",
+        position: { x, y },
+        color: NODE_COLORS[colorIndex]
+      };
+
       await updateDoc(roadmapRef, { nodes: [...existingNodes, newNode] });
 
       toast.success('Step added to your roadmap!', { id: toastId });
@@ -72,9 +79,6 @@ const SuggestionsPanel = ({ isLoading, suggestions }: { isLoading: boolean; sugg
       toast.error('Failed to add step.', { id: toastId });
     }
   };
-
-  // --- THIS IS THE FIX ---
-  // The rendering logic is now properly structured to prevent crashes.
 
   if (isLoading) {
     return (
@@ -94,19 +98,23 @@ const SuggestionsPanel = ({ isLoading, suggestions }: { isLoading: boolean; sugg
     );
   }
 
-  // This part of the code will ONLY run if 'isLoading' is false AND 'suggestions' is not null.
   return (
     <>
-      <AddToRoadmapModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+      <AddToRoadmapModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
         roadmaps={roadmaps}
         learningStep={stepToAdd}
         onConfirm={handleConfirmAddToRoadmap}
       />
       <div className="space-y-4">
         {suggestions.jobRoles.map((role, i) => (
-          <a key={`job-${i}`} href={`https://www.google.com/search?q=${encodeURIComponent(role.title + " jobs")}`} target="_blank" rel="noopener noreferrer">
+          <a
+            key={`job-${i}`}
+            href={`https://www.google.com/search?q=${encodeURIComponent(role.title + " jobs")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <SuggestionCard colorClass="bg-red-400">
               <BriefcaseIcon className="w-6 h-6 text-white" />
               <div>
@@ -128,7 +136,12 @@ const SuggestionsPanel = ({ isLoading, suggestions }: { isLoading: boolean; sugg
           </button>
         ))}
         {suggestions.recommendedCourses.map((course, i) => (
-          <a key={`course-${i}`} href={course.link} target="_blank" rel="noopener noreferrer">
+          <a
+            key={`course-${i}`}
+            href={course.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <SuggestionCard colorClass="bg-green-400">
               <AcademicCapIcon className="w-6 h-6 text-white" />
               <div>
