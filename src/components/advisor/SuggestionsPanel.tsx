@@ -9,24 +9,43 @@ import type { AIResponse, Roadmap, RoadmapNode } from '../../types';
 import AddToRoadmapModal from '../dashboard/AddToRoadmapModal';
 import { MapIcon, AcademicCapIcon, BriefcaseIcon } from '@heroicons/react/24/solid';
 
-const NODE_COLORS = ['bg-pink-200', 'bg-yellow-200', 'bg-green-200', 'bg-teal-200', 'bg-orange-200', 'bg-blue-200'];
+const NODE_COLORS = [
+  'bg-pink-200',
+  'bg-yellow-200',
+  'bg-green-200',
+  'bg-teal-200',
+  'bg-orange-200',
+  'bg-blue-200',
+];
 
 // --- FIXED SuggestionCard ---
-const SuggestionCard = ({ children, colorClass }: { children: React.ReactNode, colorClass: string }) => {
+const SuggestionCard = ({
+  children,
+  colorClass,
+}: {
+  children: React.ReactNode;
+  colorClass: string;
+}) => {
   const childrenArray = React.Children.toArray(children);
   return (
     <div className="bg-white p-4 rounded-xl border-2 border-gray-200 flex items-start space-x-4 shadow-sm w-full text-left">
-      <div className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center ${colorClass}`}>
+      <div
+        className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center ${colorClass}`}
+      >
         {childrenArray[0]} {/* Icon */}
       </div>
-      <div>
-        {childrenArray[1]} {/* Content */}
-      </div>
+      <div>{childrenArray[1]} {/* Content */}</div>
     </div>
   );
 };
 
-const SuggestionsPanel = ({ isLoading, suggestions }: { isLoading: boolean; suggestions: AIResponse | null }) => {
+const SuggestionsPanel = ({
+  isLoading,
+  suggestions,
+}: {
+  isLoading: boolean;
+  suggestions: AIResponse | null;
+}) => {
   const { user } = useAuth();
   const [roadmaps, setRoadmaps] = useState<Roadmap[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,7 +56,11 @@ const SuggestionsPanel = ({ isLoading, suggestions }: { isLoading: boolean; sugg
       const fetchRoadmaps = async () => {
         const q = query(collection(db, 'roadmaps'), where('userId', '==', user.uid));
         const querySnapshot = await getDocs(q);
-        setRoadmaps(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Roadmap)));
+        setRoadmaps(
+          querySnapshot.docs.map(
+            (doc) => ({ id: doc.id, ...doc.data() } as Roadmap)
+          )
+        );
       };
       fetchRoadmaps();
     }
@@ -54,20 +77,22 @@ const SuggestionsPanel = ({ isLoading, suggestions }: { isLoading: boolean; sugg
     try {
       const roadmapRef = doc(db, 'roadmaps', roadmapId);
       const roadmapSnap = await getDoc(roadmapRef);
-      if (!roadmapSnap.exists()) throw new Error("Roadmap not found.");
+      if (!roadmapSnap.exists()) throw new Error('Roadmap not found.');
 
       const existingNodes = roadmapSnap.data().nodes || [];
       const colorIndex = existingNodes.length % NODE_COLORS.length;
-      const gridCols = 4; const xSpacing = 300; const ySpacing = 150;
+      const gridCols = 4;
+      const xSpacing = 300;
+      const ySpacing = 150;
       const x = 50 + (existingNodes.length % gridCols) * xSpacing;
       const y = 50 + Math.floor(existingNodes.length / gridCols) * ySpacing;
 
       const newNode: RoadmapNode = {
         id: `${Date.now()}`,
         title: stepToAdd,
-        description: "From AI Suggestion",
+        description: 'From AI Suggestion',
         position: { x, y },
-        color: NODE_COLORS[colorIndex]
+        color: NODE_COLORS[colorIndex],
       };
 
       await updateDoc(roadmapRef, { nodes: [...existingNodes, newNode] });
@@ -111,7 +136,7 @@ const SuggestionsPanel = ({ isLoading, suggestions }: { isLoading: boolean; sugg
         {suggestions.jobRoles.map((role, i) => (
           <a
             key={`job-${i}`}
-            href={`https://www.google.com/search?q=${encodeURIComponent(role.title + " jobs")}`}
+            href={`https://www.google.com/search?q=${encodeURIComponent(role.title + ' jobs')}`}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -126,7 +151,7 @@ const SuggestionsPanel = ({ isLoading, suggestions }: { isLoading: boolean; sugg
         ))}
         {suggestions.learningPath.map((step, i) => (
           <button key={`path-${i}`} onClick={() => handleOpenModal(step)} className="w-full">
-            <SuggestionCard colorClass={i % 2 === 0 ? "bg-orange-400" : "bg-blue-400"}>
+            <SuggestionCard colorClass={i % 2 === 0 ? 'bg-orange-400' : 'bg-blue-400'}>
               <MapIcon className="w-6 h-6 text-white" />
               <div>
                 <h4 className="font-bold text-gray-800">Learning Path</h4>
