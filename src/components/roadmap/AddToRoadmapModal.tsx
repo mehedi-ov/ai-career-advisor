@@ -1,6 +1,6 @@
-// src/components/dashboard/AddToRoadmapModal.tsx (Final and Complete)
+// src/components/roadmap/AddToRoadmapModal.tsx
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import Button from '../ui/Button';
@@ -17,7 +17,6 @@ interface AddToRoadmapModalProps {
 const AddToRoadmapModal = ({ isOpen, onClose, roadmaps, suggestion, onConfirm }: AddToRoadmapModalProps) => {
   const [selectedRoadmapId, setSelectedRoadmapId] = useState<string | null>(null);
 
-  // This effect ensures that when the modal opens, the first roadmap in the list is pre-selected.
   useEffect(() => {
     if (isOpen && roadmaps.length > 0) {
       setSelectedRoadmapId(roadmaps[0].id);
@@ -32,7 +31,6 @@ const AddToRoadmapModal = ({ isOpen, onClose, roadmaps, suggestion, onConfirm }:
     }
   };
   
-  // Don't render anything if there's no suggestion data to work with.
   if (!suggestion) {
     return null;
   }

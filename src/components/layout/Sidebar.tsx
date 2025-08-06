@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { ChartBarIcon, BriefcaseIcon, AcademicCapIcon, DocumentTextIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
+import { ChartBarIcon, BriefcaseIcon } from '@heroicons/react/24/outline';
 import { cn } from '../../lib/utils';
 
 const navigation = [

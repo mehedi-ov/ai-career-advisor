@@ -1,8 +1,6 @@
-// src/pages/AdvisorPage.tsx (Final High-Fidelity Version)
+// src/pages/AdvisorPage.tsx
 
-import React from 'react';
 import CareerAdvisorForm from '../components/advisor/CareerAdvisorForm';
-import Sidebar from '../components/layout/Sidebar';
 import { GridPattern } from "../components/ui/grid-pattern"; 
 import { ChartBarIcon, BriefcaseIcon } from '@heroicons/react/24/outline';
 

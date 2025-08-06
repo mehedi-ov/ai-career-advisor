@@ -41,7 +41,12 @@ const containerVariants = {
 };
 const cardVariants = {
   hidden: { opacity: 0, y: 40, scale: 0.95 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 80 } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { type: "spring" as const, stiffness: 80 },
+  },
 };
 
 // 1. Pill-shaped, fewer, thicker, animated height
@@ -70,39 +75,6 @@ const PillBlocks = () => {
               "linear-gradient(to bottom, transparent 0%, rgba(139,92,246,0.18) 20%, rgba(139,92,246,0.10) 80%, transparent 100%)",
             borderRadius: "9999px",
             filter: "blur(0.5px)",
-          }}
-        />
-      ))}
-    </div>
-  );
-};
-
-// 2. Dotted, square, more columns
-const DottedBlocks = () => {
-  const columns = Array.from({ length: 32 });
-  return (
-    <div className="absolute inset-0 flex z-0 pointer-events-none">
-      {columns.map((_, i) => (
-        <motion.div
-          key={i}
-          className="flex-1 h-full mx-0.5"
-          initial={{ opacity: 0.18, y: 0 }}
-          animate={{
-            opacity: [0.18, 0.32, 0.18],
-            y: [0, 16 * Math.sin(i), 0],
-          }}
-          transition={{
-            duration: 2.5 + i * 0.05,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut",
-            delay: i * 0.05,
-          }}
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent 0%, rgba(139,92,246,0.18) 20%, rgba(139,92,246,0.10) 80%, transparent 100%)",
-            border: "1px dotted rgba(139,92,246,0.10)",
-            borderRadius: "0.5rem",
           }}
         />
       ))}
@@ -144,70 +116,6 @@ const CheckerBlocks = () => {
   );
 };
 
-// 4. Diagonal gradient, pill, fewer blocks
-const DiagonalBlocks = () => {
-  const columns = Array.from({ length: 10 });
-  return (
-    <div className="absolute inset-0 flex z-0 pointer-events-none">
-      {columns.map((_, i) => (
-        <motion.div
-          key={i}
-          className="basis-[9%] h-full mx-3"
-          initial={{ opacity: 0.22, y: 0 }}
-          animate={{
-            opacity: [0.22, 0.38, 0.22],
-            y: [0, 20 * Math.sin(i), 0],
-          }}
-          transition={{
-            duration: 3.5 + i * 0.09,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut",
-            delay: i * 0.09,
-          }}
-          style={{
-            background:
-              "linear-gradient(135deg, transparent 0%, rgba(139,92,246,0.18) 40%, rgba(139,92,246,0.10) 80%, transparent 100%)",
-            borderRadius: "9999px",
-            filter: "blur(0.5px)",
-          }}
-        />
-      ))}
-    </div>
-  );
-};
-
-// 5. Solid color, square, more columns
-const SolidBlocks = () => {
-  const columns = Array.from({ length: 28 });
-  return (
-    <div className="absolute inset-0 flex z-0 pointer-events-none">
-      {columns.map((_, i) => (
-        <motion.div
-          key={i}
-          className="flex-1 h-full mx-1"
-          initial={{ opacity: 0.18, y: 0 }}
-          animate={{
-            opacity: [0.18, 0.32, 0.18],
-            y: [0, 8 * Math.sin(i), 0],
-          }}
-          transition={{
-            duration: 2.5 + i * 0.05,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut",
-            delay: i * 0.05,
-          }}
-          style={{
-            background: "rgba(139,92,246,0.12)",
-            borderRadius: "0.5rem",
-          }}
-        />
-      ))}
-    </div>
-  );
-};
-
 // You can stack multiple layers for more depth:
 const StackedBlocks = () => (
   <>
@@ -217,7 +125,20 @@ const StackedBlocks = () => (
   </>
 );
 
-const FeatureCard = ({ icon: Icon, title, description }: any) => (
+// --- COMMENTED OUT unused components to avoid TS errors ---
+// const DottedBlocks = () => { ... }
+// const DiagonalBlocks = () => { ... }
+// const SolidBlocks = () => { ... }
+
+const FeatureCard = ({
+  icon: Icon,
+  title,
+  description,
+}: {
+  icon: React.ElementType;
+  title: string;
+  description: string;
+}) => (
   <motion.div
     variants={cardVariants}
     whileHover={{ scale: 1.04 }}
@@ -255,13 +176,7 @@ const FeaturesSection = () => (
     id="features"
     className="relative py-24 sm:py-32 bg-[#F8F6FF] overflow-hidden"
   >
-    {/* === CHOOSE YOUR BLOCK STYLE BELOW === */}
-    {/* <PillBlocks /> 
-    {/* <DottedBlocks /> */}
-    {/* <CheckerBlocks /> */}
-    {/* <DiagonalBlocks /> */}
-    {/* <SolidBlocks /> */}
-    <StackedBlocks /> {/* <-- Try stacking for more depth! */}
+    <StackedBlocks />
 
     <div className="max-w-screen-xl mx-auto px-6 relative z-10">
       <h2 className="text-5xl font-bold text-center text-[#8B5CF6] mb-16">

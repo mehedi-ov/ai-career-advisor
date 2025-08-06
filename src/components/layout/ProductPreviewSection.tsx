@@ -12,7 +12,11 @@ const ProductPreviewSection = () => {
       {/* Parallax blob */}
       <motion.div
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] rounded-full z-0"
-        style={{ y }}
+        style={{
+          y,
+          background:
+            "radial-gradient(ellipse at center, rgba(168,85,247,0.13) 0%, rgba(139,92,246,0.18) 60%, rgba(139,92,246,0.10) 100%)",
+        }}
         initial={{ scale: 0.95, opacity: 0.7 }}
         animate={{
           scale: [0.95, 1.05, 0.95],
@@ -23,10 +27,6 @@ const ProductPreviewSection = () => {
           duration: 8,
           repeat: Infinity,
           ease: "easeInOut"
-        }}
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(168,85,247,0.13) 0%, rgba(139,92,246,0.18) 60%, rgba(139,92,246,0.10) 100%)",
         }}
       />
       <div className="max-w-5xl mx-auto px-6 relative z-10 flex flex-col items-center">

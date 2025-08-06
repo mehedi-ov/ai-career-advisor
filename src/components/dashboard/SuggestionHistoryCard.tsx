@@ -1,12 +1,11 @@
-// src/components/dashboard/SuggestionHistoryCard.tsx (Updated to be Clickable)
+// src/components/dashboard/SuggestionHistoryCard.tsx
 
-import React from 'react';
 import type { SuggestionHistoryItem } from '../../types';
 import { SparklesIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 
 interface SuggestionCardProps {
   item: SuggestionHistoryItem;
-  onClick: () => void; // <-- Add the onClick prop
+  onClick: () => void;
 }
 
 const SuggestionHistoryCard = ({ item, onClick }: SuggestionCardProps) => {

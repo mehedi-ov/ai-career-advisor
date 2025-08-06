@@ -20,7 +20,11 @@ const TrustedBySection = () => {
       {/* Parallax blobs */}
       <motion.div
         className="absolute left-1/4 top-0 w-[300px] h-[120px] rounded-full z-0"
-        style={{ y }}
+        style={{
+          y,
+          background:
+            "radial-gradient(ellipse at center, rgba(168,85,247,0.13) 0%, rgba(139,92,246,0.18) 60%, rgba(139,92,246,0.10) 100%)",
+        }}
         animate={{
           scale: [0.95, 1.05, 0.95],
           opacity: [0.5, 0.7, 0.5],
@@ -31,14 +35,14 @@ const TrustedBySection = () => {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(168,85,247,0.13) 0%, rgba(139,92,246,0.18) 60%, rgba(139,92,246,0.10) 100%)",
-        }}
       />
       <motion.div
         className="absolute right-1/4 bottom-0 w-[300px] h-[120px] rounded-full z-0"
-        style={{ y: y }}
+        style={{
+          y,
+          background:
+            "radial-gradient(ellipse at center, rgba(236,72,153,0.13) 0%, rgba(168,85,247,0.13) 60%, rgba(139,92,246,0.08) 100%)",
+        }}
         animate={{
           scale: [1.05, 0.95, 1.05],
           opacity: [0.5, 0.7, 0.5],
@@ -48,10 +52,6 @@ const TrustedBySection = () => {
           duration: 10,
           repeat: Infinity,
           ease: "easeInOut"
-        }}
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(236,72,153,0.13) 0%, rgba(168,85,247,0.13) 60%, rgba(139,92,246,0.08) 100%)",
         }}
       />
       {/* Animated icons */}

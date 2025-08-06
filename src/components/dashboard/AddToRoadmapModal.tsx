@@ -1,6 +1,6 @@
-// src/components/dashboard/AddToRoadmapModal.tsx (Final and Correct)
+// src/components/dashboard/AddToRoadmapModal.tsx
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import Button from '../ui/Button';
@@ -14,7 +14,13 @@ interface AddToRoadmapModalProps {
   onConfirm: (roadmapId: string) => void;
 }
 
-const AddToRoadmapModal = ({ isOpen, onClose, roadmaps, learningStep, onConfirm }: AddToRoadmapModalProps) => {
+const AddToRoadmapModal = ({
+  isOpen,
+  onClose,
+  roadmaps,
+  learningStep,
+  onConfirm,
+}: AddToRoadmapModalProps) => {
   const [selectedRoadmapId, setSelectedRoadmapId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -30,7 +36,8 @@ const AddToRoadmapModal = ({ isOpen, onClose, roadmaps, learningStep, onConfirm 
       onConfirm(selectedRoadmapId);
     }
   };
-  
+
+  // Don't render anything if there's no learning step to add
   if (!learningStep) return null;
 
   return (
@@ -65,23 +72,29 @@ const AddToRoadmapModal = ({ isOpen, onClose, roadmaps, learningStep, onConfirm 
               <div className="space-y-3">
                 <label className="text-sm font-semibold text-gray-500">Your Roadmaps</label>
                 <div className="max-h-48 overflow-y-auto pr-2 border-y dark:border-slate-700 py-2">
-                    {roadmaps.map(roadmap => (
-                        <div 
-                            key={roadmap.id}
-                            onClick={() => setSelectedRoadmapId(roadmap.id)}
-                            className={`flex items-center p-3 rounded-lg cursor-pointer transition-colors ${selectedRoadmapId === roadmap.id ? 'bg-indigo-50 dark:bg-indigo-900/50' : 'hover:bg-gray-100 dark:hover:bg-slate-700'}`}
-                        >
-                            <input type="radio" name="roadmap-selection" checked={selectedRoadmapId === roadmap.id} readOnly className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"/>
-                            <span className="ml-3 font-semibold text-gray-800 dark:text-gray-200">{roadmap.name}</span>
-                        </div>
-                    ))}
+                  {roadmaps.map(roadmap => (
+                    <div 
+                      key={roadmap.id}
+                      onClick={() => setSelectedRoadmapId(roadmap.id)}
+                      className={`flex items-center p-3 rounded-lg cursor-pointer transition-colors ${selectedRoadmapId === roadmap.id ? 'bg-indigo-50 dark:bg-indigo-900/50' : 'hover:bg-gray-100 dark:hover:bg-slate-700'}`}
+                    >
+                      <input
+                        type="radio"
+                        name="roadmap-selection"
+                        checked={selectedRoadmapId === roadmap.id}
+                        readOnly
+                        className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                      />
+                      <span className="ml-3 font-semibold text-gray-800 dark:text-gray-200">{roadmap.name}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             ) : (
-                <div className="text-center p-6 bg-gray-50 rounded-lg">
-                    <p className="font-semibold text-gray-700">No roadmaps found.</p>
-                    <p className="text-sm text-gray-500">Please create a new roadmap first to add suggestions.</p>
-                </div>
+              <div className="text-center p-6 bg-gray-50 rounded-lg">
+                <p className="font-semibold text-gray-700">No roadmaps found.</p>
+                <p className="text-sm text-gray-500">Please create a new roadmap first to add suggestions.</p>
+              </div>
             )}
             
             <div className="mt-8 flex justify-end space-x-3">

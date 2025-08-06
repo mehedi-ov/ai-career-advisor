@@ -1,6 +1,4 @@
-// src/pages/DashboardPage.tsx (Final, Fully Functional, and Corrected)
-
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { collection, addDoc, query, where, getDocs, deleteDoc, doc, serverTimestamp, getDoc, updateDoc } from 'firebase/firestore';
@@ -55,8 +53,6 @@ const DashboardPage = () => {
     fetchData();
   }, [user]);
   
-  // --- ALL HANDLER FUNCTIONS ARE NOW CORRECTLY INSIDE THE COMPONENT ---
-
   const handleOpenAddToRoadmapModal = (suggestion: SuggestionHistoryItem) => {
     setSelectedSuggestion(suggestion);
     setIsModalOpen(true);
@@ -130,7 +126,7 @@ const DashboardPage = () => {
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
         roadmaps={roadmaps}
-        suggestion={selectedSuggestion}
+        learningStep={selectedSuggestion ? selectedSuggestion.inputs.goals : null}
         onConfirm={handleConfirmAddToRoadmap}
       />
       <div className="relative flex w-full min-h-screen">

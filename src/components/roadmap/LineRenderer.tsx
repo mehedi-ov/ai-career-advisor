@@ -1,6 +1,5 @@
-// src/components/roadmap/LineRenderer.tsx (NEW FILE)
+// src/components/roadmap/LineRenderer.tsx
 
-import React from 'react';
 import type { RoadmapNode } from '../../types';
 
 interface LineRendererProps {

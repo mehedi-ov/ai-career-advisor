@@ -1,6 +1,5 @@
-// src/components/roadmap/ProfileModal.tsx (NEW FILE)
+// src/components/roadmap/ProfileModal.tsx
 
-import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';

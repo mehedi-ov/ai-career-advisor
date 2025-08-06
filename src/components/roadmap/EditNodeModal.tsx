@@ -1,6 +1,6 @@
-// src/components/roadmap/EditNodeModal.tsx (NEW FILE)
+// src/components/roadmap/EditNodeModal.tsx
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import type { RoadmapNode } from '../../types';

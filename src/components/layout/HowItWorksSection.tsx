@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { HiOutlineUser, HiOutlineLightningBolt, HiOutlineSparkles, HiOutlineUsers } from "react-icons/hi";
+import { HiOutlineUser, HiOutlineLightningBolt, HiOutlineSparkles } from "react-icons/hi";
 
 const steps = [
   {
@@ -28,7 +28,7 @@ const containerVariants = {
 };
 const stepVariants = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80 } },
+  visible: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 80 } },
 };
 
 const AnimatedBackground = () => (

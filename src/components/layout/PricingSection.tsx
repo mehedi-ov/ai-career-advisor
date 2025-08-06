@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   HiOutlineUser,
   HiOutlineLightningBolt,
   HiOutlineSparkles,
-  HiOutlineUsers,
 } from "react-icons/hi";
 
 const plans = [
@@ -70,27 +69,7 @@ const plans = [
     labelColor: "bg-gradient-to-r from-[#a78bfa] to-[#7F9CF5]",
     foot: "For ambitious career builders",
   },
-  {
-    name: "Team",
-    icon: <HiOutlineUsers className="w-8 h-8 text-[#7F9CF5]" />,
-    price: { monthly: "$49", yearly: "$490" },
-    title: "For teams & organizations",
-    features: [
-      "All AI Career features",
-      "Team management dashboard",
-      "Team analytics",
-      "Priority onboarding",
-      "Dedicated support",
-    ],
-    button: {
-      text: "Contact Sales",
-      color: "from-[#7F9CF5] to-[#f472b6]",
-    },
-    blob: "bg-[#a1c4fd]/60",
-    label: "Best for Teams",
-    labelColor: "bg-gradient-to-r from-[#7F9CF5] to-[#f472b6]",
-    foot: "For companies & bootcamps",
-  },
+  // You can add the Team plan back if you want, just make sure the icon is imported and used.
 ];
 
 const cardVariants = {
@@ -99,7 +78,7 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { type: "spring", stiffness: 80, delay: i * 0.12 },
+    transition: { type: "spring" as const, stiffness: 80, delay: i * 0.12 },
   }),
 };
 
@@ -143,7 +122,7 @@ const PricingSection = () => {
             <motion.div
               key={idx}
               custom={idx}
-              variants={cardVariants}
+              variants={cardVariants as any}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}

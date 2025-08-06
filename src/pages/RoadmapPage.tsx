@@ -1,6 +1,6 @@
-// src/pages/RoadmapPage.tsx (Final, Definitive, and Fully Functional Version)
+// src/pages/RoadmapPage.tsx
 
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
@@ -14,7 +14,6 @@ import { useAuth } from '../context/AuthContext';
 import Button from '../components/ui/Button';
 import { GridPattern } from '../components/ui/grid-pattern';
 import LineRenderer from '../components/roadmap/LineRenderer';
-import HomePage from './HomePage';
 
 import { HomeIcon, BellIcon, Cog6ToothIcon, ArrowLeftOnRectangleIcon, PlusIcon, CheckIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 
@@ -33,7 +32,8 @@ const RoadmapPage = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentNode, setCurrentNode] = useState<RoadmapNodeType | null>(null);
 
-  const canvasRef = useRef<HTMLDivElement>(null);
+  // Fix: force type to match RoadmapBuilder's prop
+  const canvasRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
   
   useEffect(() => {
     if (!roadmapId) {
@@ -58,7 +58,7 @@ const RoadmapPage = () => {
         console.error("Failed to fetch roadmap:", error);
         toast.error("Could not load roadmap data.");
       } finally {
-        setIsLoading(false); // This GUARANTEES the loading state is turned off.
+        setIsLoading(false);
       }
     };
     fetchRoadmap();

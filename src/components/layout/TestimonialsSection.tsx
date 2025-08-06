@@ -54,7 +54,7 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { type: "spring", stiffness: 80, delay: i * 0.12 },
+    transition: { type: "spring" as const, stiffness: 80, delay: i * 0.12 },
   }),
 };
 
@@ -87,7 +87,7 @@ const TestimonialsSection = () => (
         <motion.div
           key={idx}
           custom={idx}
-          variants={cardVariants}
+          variants={cardVariants as any}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}

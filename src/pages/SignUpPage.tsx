@@ -1,4 +1,4 @@
-import React from 'react';
+
 import SignUpForm from '../components/auth/SignUpForm';
 import { Meteors } from '../components/ui/Meteors';
 

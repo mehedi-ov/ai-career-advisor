@@ -1,4 +1,4 @@
-// src/components/ui/infinite-moving-cards.tsx (NEW FILE)
+// src/components/ui/infinite-moving-cards.tsx
 
 "use client";
 import { cn } from "../../lib/utils";
@@ -22,6 +22,7 @@ export const InfiniteMovingCards = ({
 
   useEffect(() => {
     addAnimation();
+    // eslint-disable-next-line
   }, []);
   const [start, setStart] = useState(false);
   function addAnimation() {
@@ -67,7 +68,7 @@ export const InfiniteMovingCards = ({
         ref={scrollerRef}
         className={cn("flex min-w-full shrink-0 gap-4 py-4 w-max flex-nowrap", start && "animate-scroll", pauseOnHover && "hover:[animation-play-state:paused]")}
       >
-        {items.map((item, idx) => (
+        {items.map((item) => (
           <li
             className="w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-slate-700 px-8 py-6 md:w-[450px]"
             style={{ background: "linear-gradient(180deg, var(--slate-800), var(--slate-900)" }}
